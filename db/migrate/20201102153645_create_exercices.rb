@@ -6,11 +6,11 @@ class CreateExercices < ActiveRecord::Migration[6.0]
       t.string :type
       t.integer :timer
       t.integer :number_of_reps
-      t.integer :weight_value, default: 0
+      t.integer :weight_value
       t.integer :duration
       t.text :comment
       t.references :workout, null: false, foreign_key: true
-      t.integer :time_delay_next, default: 0
+      t.integer :time_delay_next
       t.integer :index_in_workout
       t.boolean :belongs_to_block
       t.integer :index_in_block
