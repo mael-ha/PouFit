@@ -12,7 +12,7 @@ class CreateRefExercices < ActiveRecord::Migration[6.0]
       t.references :ref_workout, null: false, foreign_key: true
       t.integer :time_delay_next, default: 0
       t.integer :index_in_workout
-      t.boolean :belong_to_block
+      t.boolean :belongs_to_block
       t.integer :index_in_block
       t.references :ref_block, null: false, foreign_key: true
       t.references :user, null: false, foreign_key: true
