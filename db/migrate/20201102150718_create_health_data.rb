@@ -4,7 +4,7 @@ class CreateHealthData < ActiveRecord::Migration[6.0]
       t.references :session, null: false, foreign_key: true
       t.integer :body_weight_main
       t.integer :body_weight_second
-      t.real :body_weight
+      t.integer :body_weight
       t.integer :muscular_mass
       t.integer :fat_mass
 
