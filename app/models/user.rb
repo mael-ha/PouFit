@@ -4,8 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :sessions
-  has_many :workouts, through: :sessions
+  has_many :day_sessions
+  has_many :workouts, through: :day_sessions
   has_many :ref_workouts
   has_many :ref_blocks
   has_many :ref_exercices

@@ -34,6 +34,14 @@ ActiveRecord::Schema.define(version: 2020_11_02_153645) do
     t.index ["workout_id"], name: "index_blocks_on_workout_id"
   end
 
+  create_table "day_sessions", force: :cascade do |t|
+    t.date "date"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_day_sessions_on_user_id"
+  end
+
   create_table "exercices", force: :cascade do |t|
     t.string "name"
     t.bigint "base_id", null: false
@@ -58,7 +66,7 @@ ActiveRecord::Schema.define(version: 2020_11_02_153645) do
   end
 
   create_table "health_data", force: :cascade do |t|
-    t.bigint "session_id", null: false
+    t.bigint "day_session_id", null: false
     t.integer "body_weight_main"
     t.integer "body_weight_second"
     t.integer "body_weight"
@@ -66,19 +74,19 @@ ActiveRecord::Schema.define(version: 2020_11_02_153645) do
     t.integer "fat_mass"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["session_id"], name: "index_health_data_on_session_id"
+    t.index ["day_session_id"], name: "index_health_data_on_day_session_id"
   end
 
   create_table "meals", force: :cascade do |t|
     t.string "name"
-    t.bigint "session_id", null: false
+    t.bigint "day_session_id", null: false
     t.boolean "eaten"
     t.boolean "healthy"
     t.string "type"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "daily_note"
-    t.index ["session_id"], name: "index_meals_on_session_id"
+    t.index ["day_session_id"], name: "index_meals_on_day_session_id"
   end
 
   create_table "ref_blocks", force: :cascade do |t|
@@ -125,20 +133,19 @@ ActiveRecord::Schema.define(version: 2020_11_02_153645) do
     t.index ["user_id"], name: "index_ref_workouts_on_user_id"
   end
 
-  create_table "sessions", force: :cascade do |t|
-    t.date "date"
-    t.bigint "user_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_sessions_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "last_sign_in_at"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "username"
+    t.date "birthdate"
+    t.string "gender"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
@@ -149,21 +156,22 @@ ActiveRecord::Schema.define(version: 2020_11_02_153645) do
     t.string "name"
     t.integer "duration"
     t.integer "index"
-    t.bigint "session_id", null: false
+    t.bigint "day_session_id", null: false
     t.datetime "start_time"
     t.datetime "end_time"
     t.integer "duration_theorical"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["session_id"], name: "index_workouts_on_session_id"
+    t.index ["day_session_id"], name: "index_workouts_on_day_session_id"
   end
 
   add_foreign_key "blocks", "workouts"
+  add_foreign_key "day_sessions", "users"
   add_foreign_key "exercices", "bases", column: "base_id"
   add_foreign_key "exercices", "blocks"
   add_foreign_key "exercices", "workouts"
-  add_foreign_key "health_data", "sessions"
-  add_foreign_key "meals", "sessions"
+  add_foreign_key "health_data", "day_sessions"
+  add_foreign_key "meals", "day_sessions"
   add_foreign_key "ref_blocks", "ref_workouts"
   add_foreign_key "ref_blocks", "users"
   add_foreign_key "ref_exercices", "bases", column: "base_id"
@@ -171,6 +179,5 @@ ActiveRecord::Schema.define(version: 2020_11_02_153645) do
   add_foreign_key "ref_exercices", "ref_workouts"
   add_foreign_key "ref_exercices", "users"
   add_foreign_key "ref_workouts", "users"
-  add_foreign_key "sessions", "users"
-  add_foreign_key "workouts", "sessions"
+  add_foreign_key "workouts", "day_sessions"
 end

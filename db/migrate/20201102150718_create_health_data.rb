@@ -1,7 +1,7 @@
 class CreateHealthData < ActiveRecord::Migration[6.0]
   def change
     create_table :health_data do |t|
-      t.references :session, null: false, foreign_key: true
+      t.references :day_session, null: false, foreign_key: true
       t.integer :body_weight_main
       t.integer :body_weight_second
       t.integer :body_weight

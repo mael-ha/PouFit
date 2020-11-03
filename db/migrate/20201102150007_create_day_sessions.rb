@@ -1,6 +1,6 @@
-class CreateSessions < ActiveRecord::Migration[6.0]
+class CreateDaySessions < ActiveRecord::Migration[6.0]
   def change
-    create_table :sessions do |t|
+    create_table :day_sessions do |t|
       t.date :date
       t.references :user, null: false, foreign_key: true
 

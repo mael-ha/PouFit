@@ -1,3 +1,3 @@
 class HealthData < ApplicationRecord
-  belongs_to :session
+  belongs_to :day_session
 end
