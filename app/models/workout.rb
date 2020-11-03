@@ -1,5 +1,5 @@
 class Workout < ApplicationRecord
-  belongs_to :session
+  belongs_to :day_session
   has_many :blocks
   has_many :exercices
   validates :name, presence: :true

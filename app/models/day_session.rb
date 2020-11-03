@@ -1,4 +1,4 @@
-class Session < ApplicationRecord
+class DaySession < ApplicationRecord
   belongs_to :user
   has_many :workouts
   validates :date, uniqueness: true
