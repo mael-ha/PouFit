@@ -47,7 +47,7 @@ puts "   => Created exercice bases: #{Base.all.each { |base| puts "#{base.name}"
 puts "... Creating Ref_exercices"
 
 puts "... // Creating 90s Jumping Jack"
-  90sjj = Ref_exercice.create!(
+  jj_90s = Ref_exercice.create!(
     name: "5 #{jj.name} - #{i}/6",
     base: jj,
     type: "timer",
@@ -61,13 +61,14 @@ puts "... // Creating 90s Jumping Jack"
     index_in_workout: nil,
     ref_block_id: nil,
     ref_workout_id: nil
+    )
 puts "... => 90s jumping jack created"
 
-puts "... // Creating 6x5dips"
+puts "... // Creating dips_6x5"
 i = 1
-6x5dips = []
+dips_6x5 = []
 6.times do
-  5dips = Ref_exercice.create!(
+  dips_x5 = Ref_exercice.create!(
     name: "5 #{dips.name} - #{i}/6",
     base: dips,
     type: "reps",
@@ -82,16 +83,16 @@ i = 1
     ref_block_id: nil,
     ref_workout_id: nil
     )
-  6x5dips << 5dips
+  dips_6x5 << 5dips
   i += 1
 end
-puts "... => 6x5dips created"
+puts "... => dips_6x5 created"
 
-puts "... // Creating 6x5p1"
+puts "... // Creating p1_6x5"
 i = 1
-6x5p1 = []
+p1_6x5 = []
 6.times do
-  5p1 = Ref_exercice.create!(
+  p1_x5 = Ref_exercice.create!(
     name: "5 #{p1.name} - #{i}/6",
     base: p1,
     type: "reps",
@@ -106,16 +107,16 @@ i = 1
     ref_block_id: nil,
     ref_workout_id: nil
     )
-  6x5p1 << 5p1
+  p1_6x5 << 5p1
   i += 1
 end
-puts "... => 6x5p1 created"
+puts "... => p1_6x5 created"
 
-puts "... // Creating 6x5p2"
+puts "... // Creating p2_6x5"
 i = 1
-6x5p2 = []
+p2_6x5 = []
 6.times do
-  5p2 = Ref_exercice.create!(
+  p2_x5 = Ref_exercice.create!(
     name: "5 #{p2.name} - #{i}/6",
     base: p2,
     type: "reps",
@@ -130,16 +131,16 @@ i = 1
     ref_block_id: nil,
     ref_workout_id: nil
     )
-  6x5p2 << 5p2
+  p2_6x5 << 5p2
   i += 1
 end
-puts "... => 6x5p2 created"
+puts "... => p2_6x5 created"
 
-puts "... // Creating 6x5t1"
+puts "... // Creating t1_6x5"
 i = 1
-6x5t1 = []
+t1_6x5 = []
 6.times do
-  5t1 = Ref_exercice.create!(
+  t1_x5 = Ref_exercice.create!(
     name: "5 #{t1.name} - #{i}/6",
     base: t1,
     type: "reps",
@@ -154,16 +155,16 @@ i = 1
     ref_block_id: nil,
     ref_workout_id: nil
     )
-  6x5t1 << 5t1
+  t1_6x5 << 5t1
   i += 1
 end
-puts "... => 6x5t1 created"
+puts "... => t1_6x5 created"
 
-puts "... // Creating 6x5t2"
+puts "... // Creating t2_6x5"
 i = 1
-6x5t2 = []
+t2_6x5 = []
 6.times do
-  5t2 = Ref_exercice.create!(
+  t2_x5 = Ref_exercice.create!(
     name: "5 #{t2.name} - #{i}/6",
     base: t2,
     type: "reps",
@@ -178,10 +179,10 @@ i = 1
     ref_block_id: nil,
     ref_workout_id: nil
     )
-  6x5t2 << 5t2
+  t2_6x5 << 5t2
   i += 1
 end
-puts "... => 6x5t2 created"
+puts "... => t2_6x5 created"
 
 puts "... Creating 2 Ref_blocks : Poitrine and Dos"
 block_poitrine = Block.create!(
@@ -199,8 +200,8 @@ block_dos = Block.create!(
   user: sam
   )
 
-exo_poitrine = [6x5dips, 6x5p1, 6x5p2]
-puts "... Adding  6x5dips, 6x5p1 and 6x5p2 to Ref_block Poitrine"
+exo_poitrine = [dips_6x5, p1_6x5, p2_6x5]
+puts "... Adding  dips_6x5, p1_6x5 and p2_6x5 to Ref_block Poitrine"
 exo_poitrine.each do |mini_block|
   i = 1
   mini_block.each do |exo|
@@ -210,8 +211,8 @@ exo_poitrine.each do |mini_block|
   end
 end
 
-puts "... Adding  6x5t1 and 6x5t2to Ref_block Dos"
-exo_dos = [6x5t1, 6x5t2]
+puts "... Adding  t1_6x5 and t2_6x5to Ref_block Dos"
+exo_dos = [t1_6x5, t2_6x5]
 exo_dos.each do |mini_block|
   i = 1
   mini_block.each do |exo|
@@ -224,8 +225,8 @@ puts "   => Created 2 blocks : Poitrine and Dos"
 
 puts "... Creating 1 Ref_workout : EPP Poitrine Dos"
 ref_epp = Ref_workout.create!(name: "EPP 1/2 : Poitrine Dos", user: sam)
-90sjj.ref_workout = ref_epp
-90sjj.index_in_workout = 1
+jj_90s.ref_workout = ref_epp
+jj_90s.index_in_workout = 1
 block_poitrine.ref_workout = ref_epp
 block_poitrine.index_in_workout = 2
 block_dos.ref_workout = ref_epp
