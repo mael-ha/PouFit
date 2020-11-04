@@ -221,3 +221,13 @@ exo_dos.each do |mini_block|
   end
 end
 puts "   => Created 2 blocks : Poitrine and Dos"
+
+puts "... Creating 1 Ref_workout : EPP Poitrine Dos"
+ref_epp = Ref_workout.create!(name: "EPP 1/2 : Poitrine Dos", user: sam)
+90sjj.ref_workout = ref_epp
+90sjj.index_in_workout = 1
+block_poitrine.ref_workout = ref_epp
+block_poitrine.index_in_workout = 2
+block_dos.ref_workout = ref_epp
+block_dos.index_in_workout = 3
+puts "   => Created 1 Ref_workout : #{ref_epp.name}"
