@@ -1,7 +1,8 @@
 class RefWorkout < ApplicationRecord
   belongs_to :user
-  has_many :ref_blocks
-  has_many :ref_exercices
+  has_many :wbe_tables
+  has_many :ref_blocks, through: :wbe_tables
+  has_many :ref_exercices, through: :wbe_tables
   validates :name, presence: :true
 
   def detail

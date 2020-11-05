@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_02_153645) do
+ActiveRecord::Schema.define(version: 2020_11_05_091444) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "bases", force: :cascade do |t|
     t.string "name"
-    t.string "type"
+    t.string "base_type"
     t.string "muscular_group"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 2020_11_02_153645) do
   create_table "exercices", force: :cascade do |t|
     t.string "name"
     t.bigint "base_id", null: false
-    t.string "type"
+    t.string "exercice_type"
     t.integer "timer"
     t.integer "number_of_reps"
     t.integer "weight_value"
@@ -91,26 +91,23 @@ ActiveRecord::Schema.define(version: 2020_11_02_153645) do
 
   create_table "ref_blocks", force: :cascade do |t|
     t.string "name"
-    t.bigint "ref_workout_id", null: false
     t.integer "index_in_workout"
     t.integer "time_delay_next"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["ref_workout_id"], name: "index_ref_blocks_on_ref_workout_id"
     t.index ["user_id"], name: "index_ref_blocks_on_user_id"
   end
 
   create_table "ref_exercices", force: :cascade do |t|
     t.string "name"
     t.bigint "base_id", null: false
-    t.string "type"
+    t.string "ref_exercice_type"
     t.integer "timer"
     t.integer "number_of_reps"
     t.integer "weight_value"
     t.integer "duration"
     t.text "comment"
-    t.bigint "ref_workout_id", null: false
     t.integer "time_delay_next"
     t.integer "index_in_workout"
     t.boolean "belongs_to_block"
@@ -121,7 +118,6 @@ ActiveRecord::Schema.define(version: 2020_11_02_153645) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["base_id"], name: "index_ref_exercices_on_base_id"
     t.index ["ref_block_id"], name: "index_ref_exercices_on_ref_block_id"
-    t.index ["ref_workout_id"], name: "index_ref_exercices_on_ref_workout_id"
     t.index ["user_id"], name: "index_ref_exercices_on_user_id"
   end
 
@@ -152,6 +148,17 @@ ActiveRecord::Schema.define(version: 2020_11_02_153645) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "wbe_tables", force: :cascade do |t|
+    t.bigint "ref_workout_id", null: false
+    t.bigint "ref_exercice_id", null: false
+    t.bigint "ref_block_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["ref_block_id"], name: "index_wbe_tables_on_ref_block_id"
+    t.index ["ref_exercice_id"], name: "index_wbe_tables_on_ref_exercice_id"
+    t.index ["ref_workout_id"], name: "index_wbe_tables_on_ref_workout_id"
+  end
+
   create_table "workouts", force: :cascade do |t|
     t.string "name"
     t.integer "duration"
@@ -172,12 +179,13 @@ ActiveRecord::Schema.define(version: 2020_11_02_153645) do
   add_foreign_key "exercices", "workouts"
   add_foreign_key "health_data", "day_sessions"
   add_foreign_key "meals", "day_sessions"
-  add_foreign_key "ref_blocks", "ref_workouts"
   add_foreign_key "ref_blocks", "users"
   add_foreign_key "ref_exercices", "bases", column: "base_id"
   add_foreign_key "ref_exercices", "ref_blocks"
-  add_foreign_key "ref_exercices", "ref_workouts"
   add_foreign_key "ref_exercices", "users"
   add_foreign_key "ref_workouts", "users"
+  add_foreign_key "wbe_tables", "ref_blocks"
+  add_foreign_key "wbe_tables", "ref_exercices"
+  add_foreign_key "wbe_tables", "ref_workouts"
   add_foreign_key "workouts", "day_sessions"
 end
