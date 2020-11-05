@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_05_091444) do
+ActiveRecord::Schema.define(version: 2020_11_05_095334) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -148,15 +148,22 @@ ActiveRecord::Schema.define(version: 2020_11_05_091444) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "wbe_tables", force: :cascade do |t|
+  create_table "wb_tables", force: :cascade do |t|
     t.bigint "ref_workout_id", null: false
-    t.bigint "ref_exercice_id", null: false
     t.bigint "ref_block_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["ref_block_id"], name: "index_wbe_tables_on_ref_block_id"
-    t.index ["ref_exercice_id"], name: "index_wbe_tables_on_ref_exercice_id"
-    t.index ["ref_workout_id"], name: "index_wbe_tables_on_ref_workout_id"
+    t.index ["ref_block_id"], name: "index_wb_tables_on_ref_block_id"
+    t.index ["ref_workout_id"], name: "index_wb_tables_on_ref_workout_id"
+  end
+
+  create_table "we_tables", force: :cascade do |t|
+    t.bigint "ref_workout_id", null: false
+    t.bigint "ref_exercice_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["ref_exercice_id"], name: "index_we_tables_on_ref_exercice_id"
+    t.index ["ref_workout_id"], name: "index_we_tables_on_ref_workout_id"
   end
 
   create_table "workouts", force: :cascade do |t|
@@ -184,8 +191,9 @@ ActiveRecord::Schema.define(version: 2020_11_05_091444) do
   add_foreign_key "ref_exercices", "ref_blocks"
   add_foreign_key "ref_exercices", "users"
   add_foreign_key "ref_workouts", "users"
-  add_foreign_key "wbe_tables", "ref_blocks"
-  add_foreign_key "wbe_tables", "ref_exercices"
-  add_foreign_key "wbe_tables", "ref_workouts"
+  add_foreign_key "wb_tables", "ref_blocks"
+  add_foreign_key "wb_tables", "ref_workouts"
+  add_foreign_key "we_tables", "ref_exercices"
+  add_foreign_key "we_tables", "ref_workouts"
   add_foreign_key "workouts", "day_sessions"
 end
