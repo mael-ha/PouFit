@@ -3,7 +3,7 @@ class CreateRefExercices < ActiveRecord::Migration[6.0]
     create_table :ref_exercices do |t|
       t.string :name
       t.references :base, null: false, foreign_key: true
-      t.string :type
+      t.string :ref_exercice_type
       t.integer :timer
       t.integer :number_of_reps
       t.integer :weight_value

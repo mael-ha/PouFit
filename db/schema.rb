@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2020_11_05_102406) do
 
   create_table "bases", force: :cascade do |t|
     t.string "name"
-    t.string "type"
+    t.string "base_type"
     t.string "muscular_group"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 2020_11_05_102406) do
   create_table "exercices", force: :cascade do |t|
     t.string "name"
     t.bigint "base_id", null: false
-    t.string "type"
+    t.string "exercice_type"
     t.integer "timer"
     t.integer "number_of_reps"
     t.integer "weight_value"
@@ -102,7 +102,7 @@ ActiveRecord::Schema.define(version: 2020_11_05_102406) do
   create_table "ref_exercices", force: :cascade do |t|
     t.string "name"
     t.bigint "base_id", null: false
-    t.string "type"
+    t.string "ref_exercice_type"
     t.integer "timer"
     t.integer "number_of_reps"
     t.integer "weight_value"
@@ -112,12 +112,10 @@ ActiveRecord::Schema.define(version: 2020_11_05_102406) do
     t.integer "index_in_workout"
     t.boolean "belongs_to_block"
     t.integer "index_in_block"
-    t.bigint "ref_block_id", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["base_id"], name: "index_ref_exercices_on_base_id"
-    t.index ["ref_block_id"], name: "index_ref_exercices_on_ref_block_id"
     t.index ["user_id"], name: "index_ref_exercices_on_user_id"
   end
 
@@ -149,12 +147,12 @@ ActiveRecord::Schema.define(version: 2020_11_05_102406) do
   end
 
   create_table "wbe_tables", force: :cascade do |t|
-    t.bigint "ref_workout_id", null: false
-    t.bigint "ref_exercice_id", null: false
-    t.bigint "ref_block_id", null: false
+    t.bigint "ref_workout_id"
+    t.bigint "ref_exercice_id"
+    t.bigint "ref_block_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "number_of_sets"
+    t.integer "number_of_sets", default: 1
     t.index ["ref_block_id"], name: "index_wbe_tables_on_ref_block_id"
     t.index ["ref_exercice_id"], name: "index_wbe_tables_on_ref_exercice_id"
     t.index ["ref_workout_id"], name: "index_wbe_tables_on_ref_workout_id"
@@ -182,7 +180,6 @@ ActiveRecord::Schema.define(version: 2020_11_05_102406) do
   add_foreign_key "meals", "day_sessions"
   add_foreign_key "ref_blocks", "users"
   add_foreign_key "ref_exercices", "bases", column: "base_id"
-  add_foreign_key "ref_exercices", "ref_blocks"
   add_foreign_key "ref_exercices", "users"
   add_foreign_key "ref_workouts", "users"
   add_foreign_key "wbe_tables", "ref_blocks"
