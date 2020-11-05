@@ -7,16 +7,16 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 puts "... Starting seeds"
 puts "... Erase all database"
-Ref_workout.destroy_all
-Ref_block.destroy_all
-Ref_exercise.destroy_all
+RefWorkout.destroy_all
+RefBlock.destroy_all
+RefExercice.destroy_all
 Workout.destroy_all
 Block.destroy_all
-Exercise.destroy_all
+Exercice.destroy_all
 Base.destroy_all
-Health_data.destroy_all
+HealthData.destroy_all
 Meal.destroy_all
-Day_session.destroy_all
+DaySession.destroy_all
 User.destroy_all
 
 
@@ -35,22 +35,22 @@ puts "   => Created User ##{sam.id} - username: #{sam.username}"
 
 puts "... Creating 6 exercice bases"
 
-jj = Base.create!(name: "Jumping Jack", type: "Effort", muscular_group: "full-body")
-dips = Base.create!(name: "Dips", type: "Effort", muscular_group: "mix haut")
-p1 = Base.create!(name: "Pompes serrées", type: "Effort", muscular_group: "pecs")
-p2 = Base.create!(name: "Pompes larges", type: "Effort", muscular_group: "pecs")
-t1 = Base.create!(name: "Tractions Supination", type: "Effort", muscular_group: "dos")
-t2 = Base.create!(name: "Tractions Supination", type: "Effort", muscular_group: "dos")
+jj = Base.create!(name: "Jumping Jack", base_type: "Effort", muscular_group: "full-body")
+dips = Base.create!(name: "Dips", base_type: "Effort", muscular_group: "mix haut")
+p1 = Base.create!(name: "Pompes serrées", base_type: "Effort", muscular_group: "pecs")
+p2 = Base.create!(name: "Pompes larges", base_type: "Effort", muscular_group: "pecs")
+t1 = Base.create!(name: "Tractions Supination", base_type: "Effort", muscular_group: "dos")
+t2 = Base.create!(name: "Tractions Pronation", base_type: "Effort", muscular_group: "dos")
 
 
-puts "   => Created exercice bases: #{Base.all.each { |base| puts "#{base.name}" }}"
-puts "... Creating Ref_exercices"
+puts "   => Created 5 exercice bases"
+puts "... Creating RefExercices"
 
 puts "... // Creating 90s Jumping Jack"
-  jj_90s = Ref_exercice.create!(
-    name: "5 #{jj.name} - #{i}/6",
+  jj_90s = RefExercice.create!(
+    name: "5 #{jj.name}",
     base: jj,
-    type: "timer",
+    ref_exercice_type: "timer",
     timer: 90000,
     number_of_reps: 6,
     weight_value: 0,
@@ -68,10 +68,10 @@ puts "... // Creating dips_6x5"
 i = 1
 dips_6x5 = []
 6.times do
-  dips_x5 = Ref_exercice.create!(
+  dips_x5 = RefExercice.create!(
     name: "5 #{dips.name} - #{i}/6",
     base: dips,
-    type: "reps",
+    ref_exercice_type: "reps",
     timer: nil,
     number_of_reps: 6,
     weight_value: 0,
@@ -83,7 +83,7 @@ dips_6x5 = []
     ref_block_id: nil,
     ref_workout_id: nil
     )
-  dips_6x5 << 5dips
+  dips_6x5 << dips_x5
   i += 1
 end
 puts "... => dips_6x5 created"
@@ -92,10 +92,10 @@ puts "... // Creating p1_6x5"
 i = 1
 p1_6x5 = []
 6.times do
-  p1_x5 = Ref_exercice.create!(
+  p1_x5 = RefExercice.create!(
     name: "5 #{p1.name} - #{i}/6",
     base: p1,
-    type: "reps",
+    ref_exercice_type: "reps",
     timer: nil,
     number_of_reps: 6,
     weight_value: 0,
@@ -107,7 +107,7 @@ p1_6x5 = []
     ref_block_id: nil,
     ref_workout_id: nil
     )
-  p1_6x5 << 5p1
+  p1_6x5 << p1_x5
   i += 1
 end
 puts "... => p1_6x5 created"
@@ -116,10 +116,10 @@ puts "... // Creating p2_6x5"
 i = 1
 p2_6x5 = []
 6.times do
-  p2_x5 = Ref_exercice.create!(
+  p2_x5 = RefExercice.create!(
     name: "5 #{p2.name} - #{i}/6",
     base: p2,
-    type: "reps",
+    ref_exercice_type: "reps",
     timer: nil,
     number_of_reps: 6,
     weight_value: 0,
@@ -131,7 +131,7 @@ p2_6x5 = []
     ref_block_id: nil,
     ref_workout_id: nil
     )
-  p2_6x5 << 5p2
+  p2_6x5 << p2_x5
   i += 1
 end
 puts "... => p2_6x5 created"
@@ -140,10 +140,10 @@ puts "... // Creating t1_6x5"
 i = 1
 t1_6x5 = []
 6.times do
-  t1_x5 = Ref_exercice.create!(
+  t1_x5 = RefExercice.create!(
     name: "5 #{t1.name} - #{i}/6",
     base: t1,
-    type: "reps",
+    ref_exercice_type: "reps",
     timer: nil,
     number_of_reps: 6,
     weight_value: 0,
@@ -155,7 +155,7 @@ t1_6x5 = []
     ref_block_id: nil,
     ref_workout_id: nil
     )
-  t1_6x5 << 5t1
+  t1_6x5 << t1_x5
   i += 1
 end
 puts "... => t1_6x5 created"
@@ -164,10 +164,10 @@ puts "... // Creating t2_6x5"
 i = 1
 t2_6x5 = []
 6.times do
-  t2_x5 = Ref_exercice.create!(
+  t2_x5 = RefExercice.create!(
     name: "5 #{t2.name} - #{i}/6",
     base: t2,
-    type: "reps",
+    ref_exercice_type: "reps",
     timer: nil,
     number_of_reps: 6,
     weight_value: 0,
@@ -179,20 +179,20 @@ t2_6x5 = []
     ref_block_id: nil,
     ref_workout_id: nil
     )
-  t2_6x5 << 5t2
+  t2_6x5 << t2_x5
   i += 1
 end
 puts "... => t2_6x5 created"
 
 puts "... Creating 2 Ref_blocks : Poitrine and Dos"
-block_poitrine = Block.create!(
+block_poitrine = RefBlock.create!(
   name: "Block Poitrine",
   ref_workout_id: nil,
   index_in_workout: nil,
   time_delay_next: 180000,
   user: sam
   )
-block_dos = Block.create!(
+block_dos = RefBlock.create!(
   name: "Block Dos",
   ref_workout_id: nil,
   index_in_workout: nil,
@@ -224,7 +224,7 @@ end
 puts "   => Created 2 blocks : Poitrine and Dos"
 
 puts "... Creating 1 Ref_workout : EPP Poitrine Dos"
-ref_epp = Ref_workout.create!(name: "EPP 1/2 : Poitrine Dos", user: sam)
+ref_epp = RefWorkout.create!(name: "EPP 1/2 : Poitrine Dos", user: sam)
 jj_90s.ref_workout = ref_epp
 jj_90s.index_in_workout = 1
 block_poitrine.ref_workout = ref_epp
