@@ -59,8 +59,6 @@ puts "... // Creating 90s Jumping Jack"
     user: sam,
     index_in_block: nil,
     index_in_workout: nil,
-    ref_block_id: nil,
-    ref_workout_id: nil
     )
 puts "... => 90s jumping jack created"
 
@@ -80,8 +78,6 @@ dips_6x5 = []
     user: sam,
     index_in_block: nil,
     index_in_workout: nil,
-    ref_block_id: nil,
-    ref_workout_id: nil
     )
   dips_6x5 << dips_x5
   i += 1
@@ -104,8 +100,6 @@ p1_6x5 = []
     user: sam,
     index_in_block: nil,
     index_in_workout: nil,
-    ref_block_id: nil,
-    ref_workout_id: nil
     )
   p1_6x5 << p1_x5
   i += 1
@@ -128,8 +122,6 @@ p2_6x5 = []
     user: sam,
     index_in_block: nil,
     index_in_workout: nil,
-    ref_block_id: nil,
-    ref_workout_id: nil
     )
   p2_6x5 << p2_x5
   i += 1
@@ -152,8 +144,6 @@ t1_6x5 = []
     user: sam,
     index_in_block: nil,
     index_in_workout: nil,
-    ref_block_id: nil,
-    ref_workout_id: nil
     )
   t1_6x5 << t1_x5
   i += 1
@@ -176,8 +166,6 @@ t2_6x5 = []
     user: sam,
     index_in_block: nil,
     index_in_workout: nil,
-    ref_block_id: nil,
-    ref_workout_id: nil
     )
   t2_6x5 << t2_x5
   i += 1
@@ -187,14 +175,12 @@ puts "... => t2_6x5 created"
 puts "... Creating 2 Ref_blocks : Poitrine and Dos"
 block_poitrine = RefBlock.create!(
   name: "Block Poitrine",
-  ref_workout_id: nil,
   index_in_workout: nil,
   time_delay_next: 180000,
   user: sam
   )
 block_dos = RefBlock.create!(
   name: "Block Dos",
-  ref_workout_id: nil,
   index_in_workout: nil,
   time_delay_next: 0,
   user: sam
