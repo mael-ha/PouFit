@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_05_091444) do
+ActiveRecord::Schema.define(version: 2020_11_05_102406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "bases", force: :cascade do |t|
     t.string "name"
-    t.string "base_type"
+    t.string "type"
     t.string "muscular_group"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 2020_11_05_091444) do
   create_table "exercices", force: :cascade do |t|
     t.string "name"
     t.bigint "base_id", null: false
-    t.string "exercice_type"
+    t.string "type"
     t.integer "timer"
     t.integer "number_of_reps"
     t.integer "weight_value"
@@ -102,7 +102,7 @@ ActiveRecord::Schema.define(version: 2020_11_05_091444) do
   create_table "ref_exercices", force: :cascade do |t|
     t.string "name"
     t.bigint "base_id", null: false
-    t.string "ref_exercice_type"
+    t.string "type"
     t.integer "timer"
     t.integer "number_of_reps"
     t.integer "weight_value"
@@ -154,6 +154,7 @@ ActiveRecord::Schema.define(version: 2020_11_05_091444) do
     t.bigint "ref_block_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "number_of_sets"
     t.index ["ref_block_id"], name: "index_wbe_tables_on_ref_block_id"
     t.index ["ref_exercice_id"], name: "index_wbe_tables_on_ref_exercice_id"
     t.index ["ref_workout_id"], name: "index_wbe_tables_on_ref_workout_id"
